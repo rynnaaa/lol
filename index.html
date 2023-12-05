@@ -1,0 +1,41 @@
+<title>Setu Viewer</title>
+<script src="/js/jquery.min.js"></script>
+<center>
+<h1>Setu Viewer</h1>
+<hr />
+<table border="1"><tr><td width="510">
+<img src="/images/loading.svg" width="500" onerror="getimg()"/>
+</td><td width="250">
+<p>PID: <span id="pid">Loading...</span></p>
+<p>标题: <span id="title">Loading...</span></p>
+<p>作者: <span id="author">Loading...</span></p>
+<p>Tags: <span id="tags">Loading...</span></p>
+</td></tr></table>
+<p><button onclick="alert('Loading');">再来一张</button></p>
+<hr />
+Made By <a href="https://mayx.eu.org">Mayx</a>
+</center>
+<script>
+var indexdata;
+function getimg(){
+    $("img")[0].src = "/images/loading.svg";
+    setTimeout(function(){
+        $.get("/lol/data/" + indexdata[Math.floor(Math.random()*indexdata.length)] ,function(data){
+            console.log(data);
+            $("#pid")[0].innerHTML = data["pid"];
+            $("#title")[0].innerHTML = data["title"];
+            $("#author")[0].innerHTML = data["author"];
+            $("#tags")[0].innerHTML = data["tags"];
+            $("img")[0].src = "https://pixiv.mayx.eu.org" + data["url"];
+        });
+    }, 500);
+}
+function getindex(){
+    $.get("/lol/index.json",function(data){
+        indexdata = data;
+        $("button")[0].onclick=getimg;
+        getimg();
+    });
+}
+getindex();
+</script>
