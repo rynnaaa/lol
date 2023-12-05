@@ -11,7 +11,7 @@ def get_lol_pic():
     for x in anu["data"]:
         x["url"] = x["urls"]["regular"].replace("https://i.pixiv.re/", "")
         with open(f"./data/{x['pid']}_{x['p']}.json", "w") as f:
-            f.write(dumps(x))
+            f.write(dumps(x, ensure_ascii=False))
 
 
 if __name__ == "__main__":
