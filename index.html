@@ -18,7 +18,7 @@ Made By <a href="https://mayx.eu.org">Mayx</a>
 <script>
 var indexdata;
 function getimg(){
-    $("img")[0].src = "/images/loading.svg";
+    $("img")[0].src = "https://mabbs.github.io/images/loading.svg";
     setTimeout(function(){
         $.get("/lol/data/" + indexdata[Math.floor(Math.random()*indexdata.length)] ,function(data){
             console.log(data);
