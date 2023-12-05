@@ -1,0 +1,37 @@
+name: Get Data
+
+on: 
+  workflow_dispatch:
+  schedule:
+    - cron: "0 2 * * *"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master
+    - name: Run Script
+      run: | 
+        python3 -m pip install requests
+        python3 loliconapi.py
+    - name: Make index
+      run: | 
+        printf "[" > index.json
+        ls ./data|while read data
+        do
+        printf "\"$data\"," >>index.json
+        done
+        sed -i 's/.$//' index.json
+        echo "]" >>index.json
+        
+    - name: Commit
+      run: |
+        git config --global user.email AutoupdateRobot@email.com
+        git config --global user.name AutoupdateRobot
+        git add .
+        git commit -m "update json" -a
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
