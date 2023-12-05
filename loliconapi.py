@@ -17,4 +17,4 @@ def get_lol_pic():
 if __name__ == "__main__":
     for x in range(50):
         get_lol_pic()
-        sleep(6)
+        sleep(5)
