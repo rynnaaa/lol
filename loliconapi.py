@@ -7,6 +7,7 @@ url = "https://api.lolicon.app/setu/v2?r18=1&num=20&size=regular&tag=%E8%90%9D%E
 anu = get(url).json()
 
 
+# lolis func
 def get_lol_pic():
     for x in anu["data"]:
         x["url"] = x["urls"]["regular"].replace("https://i.pixiv.re/", "")
