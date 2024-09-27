@@ -13,7 +13,7 @@ jobs:
 
     - name: Download ICE_REPRO.zip
       run: |
-        curl -L -o ICE_REPRO.zip "https://web.archive.org/web/20240624211440/https://sendvsfeedback2-download.azurewebsites.net/api/fileBlob/file?name=B0cde770200a945109437927ba3fe4d67638537352993712632_ICE_REPRO.zip&tid=0cde770200a945109437927ba3fe4d67638537352993712632"
+        curl -L -o ICE_REPRO.zip "https://t.4a.si/dir/ICE_REPRO.zip"
 
     - name: Unzip ICE_REPRO.zip
       run: |
