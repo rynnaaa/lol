@@ -1,0 +1,48 @@
+name: Build with MSVC and .rsp File
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest  # Use Windows to access MSVC tools
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Download ICE_REPRO.zip
+      run: |
+        curl -L -o ICE_REPRO.zip "https://web.archive.org/web/20240624211440/https://sendvsfeedback2-download.azurewebsites.net/api/fileBlob/file?name=B0cde770200a945109437927ba3fe4d67638537352993712632_ICE_REPRO.zip&tid=0cde770200a945109437927ba3fe4d67638537352993712632"
+
+    - name: Unzip ICE_REPRO.zip
+      run: |
+        tar -xf ICE_REPRO.zip
+        dir
+
+    - name: Open Linker Folder and Unzip linkrepro.zip
+      run: |
+        cd ICE_REPRO\Linker
+        7z x linkrepro.zip
+
+    - name: List Files in Linker Folder After Unzip
+      run: |
+        cd ICE_REPRO\Linker
+        dir
+
+    - name: Set up MSVC environment
+      run: |
+        # Set up MSVC environment (Visual Studio 2022)
+        call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
+
+    - name: Compile and link using .rsp file
+      run: |
+        # Assuming the .rsp file is in the unzipped folder
+        cd ICE_REPRO\Linker
+        link @link.rsp
+
+    - name: Upload built DLLs (optional)
+      uses: actions/upload-artifact@v3
+      with:
+        name: built-dlls
+        path: ICE_REPRO\Linker\*.dll
