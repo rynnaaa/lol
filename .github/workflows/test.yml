@@ -1,7 +1,7 @@
 name: Build with MSVC and .rsp File
 
 on:
-  workflow_dispatch:
+  workflow_dispatch:  # Allows the workflow to be triggered manually
 
 jobs:
   build:
@@ -36,8 +36,9 @@ jobs:
         & "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
 
     - name: Compile and link using .rsp file
+      shell: cmd
       run: |
-        # Assuming the .rsp file is in the unzipped folder
+        # Run the linking command in cmd.exe to handle @link.rsp properly
         cd ICE_REPRO\Linker
         link @link.rsp
 
