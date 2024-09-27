@@ -38,9 +38,8 @@ jobs:
     - name: Compile and link using .rsp file
       shell: cmd
       run: |
-        # Run the linking command in cmd.exe to handle @link.rsp properly
         cd ICE_REPRO\Linker
-        link @link.rsp
+        link.exe @link.rsp
 
     - name: Upload built DLLs (optional)
       uses: actions/upload-artifact@v3
