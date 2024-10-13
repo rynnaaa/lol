@@ -13,8 +13,9 @@ jobs:
       uses: actions/checkout@master
     - name: Run Script
       run: | 
-        python3 -m pip install requests
-        python3 loliconapi.py
+        python3 -m venv venv && source venv/bin/activate
+        pip install requests
+        python loliconapi.py
     - name: Make index
       run: | 
         printf "[" > index.json
